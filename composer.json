@@ -1,0 +1,16 @@
+{
+    "name": "kristinanikiforova/maps-task",
+    "description": "maps provider",
+    "autoload": {
+        "psr-4": {
+            "MapsTask\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Kristina Nikiforova",
+            "email": "kristina.nik93@gmail.com"
+        }
+    ],
+    "require": {}
+}
