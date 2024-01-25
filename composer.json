@@ -12,5 +12,12 @@
             "email": "kristina.nik93@gmail.com"
         }
     ],
-    "require": {}
+    "require-dev": {
+        "phpunit/phpunit": "^9.6"
+    },
+    "require": {
+        "php": "^8.0",
+        "guzzlehttp/guzzle": "^7.8",
+        "php-di/php-di": "^7.0"
+    }
 }
