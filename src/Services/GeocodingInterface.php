@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace src\Services;
+namespace MapsTask\Services;
 
 interface GeocodingInterface
 {

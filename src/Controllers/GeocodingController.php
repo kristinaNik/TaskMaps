@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace MapsTask\Controllers;
 
-use src\Services\GeocodingInterface;
+use MapsTask\Services\GeocodingInterface;
 
 class GeocodingController
 {
-    public function __construct(private GeocodingInterface $geocodingService) {
+  private GeocodingInterface $geocodingService;
+    public function __construct(GeocodingInterface $geocodingService) {
+      $this->geocodingService = $geocodingService;
     }
 
-    public function getCoordinates(string $address) {
-
-      return $this->geocodingService->getCoordinates($address);
+    public function index(string $address) {
+      return $this->geocodingService->getCoordinatesFromAddress($address);
     }
 }
