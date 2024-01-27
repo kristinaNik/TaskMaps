@@ -8,6 +8,10 @@ require 'src/bin/build.php';
 $container = build();
 
 $geocodingController = $container->get(GeocodingController::class);
-$result = $geocodingController->index('Varna');
-var_dump($result);
+
+/**
+ * @todo remove hardcoded example
+ */
+$result = $geocodingController->index('Varna'); //example
+dd($result);
 

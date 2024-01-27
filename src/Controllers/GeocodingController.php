@@ -8,12 +8,17 @@ use MapsTask\Services\GeocodingInterface;
 
 class GeocodingController
 {
-  private GeocodingInterface $geocodingService;
-    public function __construct(GeocodingInterface $geocodingService) {
-      $this->geocodingService = $geocodingService;
-    }
+	private GeocodingInterface $geocodingService;
 
-    public function index(string $address) {
-      return $this->geocodingService->getCoordinatesFromAddress($address);
-    }
+	public function __construct(GeocodingInterface $geocodingService)
+	{
+		$this->geocodingService = $geocodingService;
+	}
+
+	public function index(string $address): false|string
+	{
+		$coordinatesData = $this->geocodingService->getCoordinatesFromAddress($address);
+
+		return json_encode($coordinatesData);
+	}
 }

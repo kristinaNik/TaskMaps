@@ -6,5 +6,5 @@ namespace MapsTask\Providers;
 
 interface GeocodingProviderInterface
 {
-    public function getCoordinates(string $address): array;
+    public function getData(string $address): array;
 }
