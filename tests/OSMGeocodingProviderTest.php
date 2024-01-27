@@ -35,6 +35,41 @@ class OSMGeocodingProviderTest extends TestCase
 		$this->assertEquals($expectedResult, $result);
 	}
 
+	/**
+	 * @dataProvider getDataWithInvalidResponseProvider
+	 */
+	public function testGetDataWithInvalidResponse(
+		string $address,
+		int $statusCode,
+		string $apiResponse
+	) {
+
+		$httpClientMock = Mockery::mock(Client::class);
+		$httpClientMock->shouldReceive('send')
+			->andReturn(new Response($statusCode, [], $apiResponse));
+
+		$mapperMock = Mockery::mock(MapperInterface::class);
+
+		$osmProvider = new OSMGeocodingProvider($httpClientMock, $mapperMock);
+
+		$result = $osmProvider->getData($address);
+
+		$this->assertIsArray($result);
+		$this->assertArrayHasKey('message', $result);
+		$this->assertArrayHasKey('code', $result);
+	}
+
+	public function getDataWithInvalidResponseProvider(): array
+	{
+		return [
+			'test with invalid response' => [
+				'address' => 'TestAddress',
+				'status_code' => 404,
+				'api_response' => '{"error": "Not Found"}',
+			],
+		];
+	}
+
 	public function getDataWithValidResponseProvider(): array
 	{
 		return [

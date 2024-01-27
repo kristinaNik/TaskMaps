@@ -10,7 +10,6 @@ use PHPUnit\Framework\TestCase;
 
 class GeocodingServiceTest extends TestCase
 {
-
 	/**
 	 * @dataProvider geocodingServiceProvider
 	 */
@@ -67,6 +66,11 @@ class GeocodingServiceTest extends TestCase
 						'lng' => '-74.0060',
 					],
 				],
+			],
+			'test get coordinates with both providers returning empty result' => [
+				'osm_provider_data' => null,
+				'google_maps_provider_data' => null,
+				'expected_result' => [],
 			],
 		];
 	}

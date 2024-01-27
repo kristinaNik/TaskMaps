@@ -34,6 +34,43 @@ class GoogleMapsProviderTest extends TestCase
 		$this->assertEquals($expectedResult, $result);
 	}
 
+	/**
+	 * @dataProvider getDataWithInvalidResponseProvider
+	 */
+	public function testGetDataWithInvalidResponse(
+		string $address,
+		string $apiResponse,
+		array $responseData
+	) {
+
+		$httpClientMock = Mockery::mock(Client::class);
+		$httpClientMock->shouldReceive('get')
+			->andReturn(new Response(404, [], $apiResponse));
+
+		$mapperMock = Mockery::mock(MapperInterface::class);
+		$mapperMock->shouldReceive('mapToDTO')->andReturn($responseData);
+
+		$googleMapsProvider = new GoogleMapsProvider('fake_api_key', $httpClientMock, $mapperMock);
+
+		$result = $googleMapsProvider->getData($address);
+
+		$this->assertEquals([], $result);
+	}
+
+	public function getDataWithInvalidResponseProvider(): array
+	{
+		return [
+			'test with invalid response' => [
+				'address' => 'TestAddress',
+				'api_response' => '{
+                    "status": "INVALID",
+                    "results": []
+                }',
+				'response_data' => [],
+			],
+		];
+	}
+
 	public function getDataWithValidResponseProvider(): array
 	{
 		return [

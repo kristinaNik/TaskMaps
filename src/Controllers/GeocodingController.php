@@ -4,16 +4,24 @@ declare(strict_types=1);
 
 namespace MapsTask\Controllers;
 
+use MapsTask\Formatters\ResponseFormatter;
 use MapsTask\Services\GeocodingInterface;
 
 class GeocodingController
 {
 	public function __construct(private GeocodingInterface $geocodingService) {}
 
-	public function index(string $address): false|string
+	public function index(string $address): string
 	{
-		$coordinatesData = $this->geocodingService->getCoordinatesFromAddress($address);
+		try {
+			$coordinatesData = $this->geocodingService->getCoordinatesFromAddress($address);
 
-		return json_encode($coordinatesData);
+			return ResponseFormatter::jsonResponse($coordinatesData);
+		} catch (\Exception $exception) {
+			ResponseFormatter::jsonResponse(
+				['error' => 'An error occurred while processing your request.'],
+				JSON_THROW_ON_ERROR
+			);
+		}
 	}
 }

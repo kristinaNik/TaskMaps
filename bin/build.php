@@ -6,7 +6,6 @@ use MapsTask\Controllers\GeocodingController;
 use MapsTask\Factories\GeocodingServiceFactory;
 use MapsTask\Mappers\GoogleMapsMapper;
 use MapsTask\Mappers\OSMGeocodingMapper;
-use MapsTask\Providers\GeocodingProviderInterface;
 use MapsTask\Providers\GoogleMapsProvider;
 use MapsTask\Providers\OSMGeocodingProvider;
 use MapsTask\Services\GeocodingService;

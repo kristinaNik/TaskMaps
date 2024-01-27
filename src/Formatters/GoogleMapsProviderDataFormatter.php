@@ -15,5 +15,4 @@ class GoogleMapsProviderDataFormatter
 			'lng' => $item->getLongitude(),
 		];
 	}
-
 }
