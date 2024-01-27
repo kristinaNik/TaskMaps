@@ -6,7 +6,7 @@ use MapsTask\DTO\OSMGeocodingProviderData;
 
 class OSMGeocodingMapper implements MapperInterface
 {
-	public static function mapToDTO(array $data): array
+	public function mapToDTO(array $data): array
 	{
 		$response = [];
 
@@ -24,6 +24,8 @@ class OSMGeocodingMapper implements MapperInterface
 				$item['display_name']
 			);
 		}
+
+		dd($response);
 		return $response;
 	}
 }

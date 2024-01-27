@@ -29,6 +29,7 @@ class GoogleMapsProvider implements GeocodingProviderInterface
 			'address' => $address,
 			'key' => $this->apiKey,
 		];
+
 		try {
 			$response = $this->client->get(self::API_ENDPOINT, ['query' => $params]);
 
@@ -39,13 +40,7 @@ class GoogleMapsProvider implements GeocodingProviderInterface
 				// Handle Google Maps API error
 				return [];
 			}
-
-			$locationData = $data['results'][0]['geometry']['location'] ?? null;
-
-			if (!$locationData) {
-				// Handle missing or malformed data
-				return [];
-			}
+			$locationData = $data['results'][0]['geometry']['location'];
 
 			return $this->mapper->mapToDTO($locationData);
 

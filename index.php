@@ -16,6 +16,6 @@ $geocodingController = $container->get(GeocodingController::class);
 /**
  * @todo remove hardcoded example
  */
-$result = $geocodingController->index('Varna'); //example
+$result = $geocodingController->index('Sofia, Bulgaria'); //example
 dd($result);
 

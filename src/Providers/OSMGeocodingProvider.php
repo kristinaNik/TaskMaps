@@ -6,13 +6,12 @@ namespace MapsTask\Providers;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;;
-use MapsTask\Formatters\OSMGeocodingProviderDataFormatter;
 use MapsTask\Mappers\MapperInterface;
-use MapsTask\Mappers\OSMGeocodingMapper;
 
 class OSMGeocodingProvider implements GeocodingProviderInterface
 {
 	const API_ENDPOINT = 'https://nominatim.openstreetmap.org/search?format=json&q=%s';
+	const USER_AGENT = 'Nominatim-Test';
 
 	private Client $client;
 
@@ -31,7 +30,7 @@ class OSMGeocodingProvider implements GeocodingProviderInterface
 		try {
 			$request = new Request('GET', $url, [
 				'headers' => [
-					'User-Agent: Nominatim-Test'
+					'User-Agent' => self::USER_AGENT
 				]
 			]);
 

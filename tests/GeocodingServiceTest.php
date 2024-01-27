@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use MapsTask\DTO\GoogleMapsProviderData;
 use MapsTask\DTO\OSMGeocodingProviderData;
 use MapsTask\Providers\GeocodingProviderInterface;
@@ -18,15 +20,12 @@ class GeocodingServiceTest extends TestCase
 		array $expectedResult
 	)
 	{
-		// Mock the GeocodingProviderInterface for OSM data
 		$osmProviderMock = $this->createMock(GeocodingProviderInterface::class);
 		$osmProviderMock->method('getData')->willReturn([$osmProviderData, $googleMapsProviderData]);
 
-		// Create GeocodingService instance with the mock
 		$geocodingService = new GeocodingService($osmProviderMock);
 
-		// Call the method under test
-		$result = $geocodingService->getCoordinatesFromAddress('Varna');
+		$result = $geocodingService->getCoordinatesFromAddress('Sofia, Bulgaria');
 
 		$this->assertEquals($expectedResult, $result);
 	}
@@ -44,13 +43,13 @@ class GeocodingServiceTest extends TestCase
 					'class',
 					'type',
 					'address',
-					'Varna',
-					'Varna, Bulgaria',
+					'Sofia',
+					'Sofia, Bulgaria',
 				),
 				'google_maps_provider_data' => null,
 				'expected_result' => [
 					[
-						'name' => 'Varna',
+						'name' => 'Sofia',
 						'lon' => '20.345',
 						'lat' => '10.123',
 					],
