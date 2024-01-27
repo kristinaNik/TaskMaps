@@ -21,33 +21,44 @@ class GeocodingService implements GeocodingInterface
 	{
 		try {
 			$data = $this->geocodingProvider->getData($address);
-
 			if (empty($data)) {
 				throw new \Exception("Empty data");
 			}
-
-			$response = [];
-
-			foreach ($data as $item) {
-				if ($item instanceof OSMGeocodingProviderData) {
-					$response[] = [
-						'name' => $item->getName(),
-						'lon' => $item->getLon(),
-						'lat' => $item->getLat()
-					];
-				} elseif ($item instanceof GoogleMapsProviderData) {
-					$response[] = [
-						'lat' => $item->getLatitude(),
-						'lng' => $item->getLongitude()
-					];
-				}
-			}
-
-			return $response;
+			return $this->getCoordinates($data);
 		} catch (\Exception $exception) {
-			return [
-				'message' => $exception->getMessage()
-			];
+			return ['message' => $exception->getMessage()];
 		}
+	}
+
+	private function getCoordinates(array $data): array
+	{
+		$response = [];
+
+		foreach ($data as $item) {
+			if ($item instanceof OSMGeocodingProviderData) {
+				$response[] = $this->getOSMDataCoordinates($item);
+			} elseif ($item instanceof GoogleMapsProviderData) {
+				$response[] = $this->getGoogleMapsDataCoordinates($item);
+			}
+		}
+
+		return $response;
+	}
+
+	private function getOSMDataCoordinates(OSMGeocodingProviderData $item): array
+	{
+		return [
+			'name' => $item->getName(),
+			'lon'  => $item->getLon(),
+			'lat'  => $item->getLat(),
+		];
+	}
+
+	private function getGoogleMapsDataCoordinates(GoogleMapsProviderData $item): array
+	{
+		return [
+			'lat' => $item->getLatitude(),
+			'lng' => $item->getLongitude(),
+		];
 	}
 }

@@ -21,7 +21,6 @@ class OSMGeocodingProviderDataFormatter
 				$item['lon'],
 				$item['class'],
 				$item['type'],
-				$item['importance'],
 				$item['addresstype'],
 				$item['name'],
 				$item['display_name']

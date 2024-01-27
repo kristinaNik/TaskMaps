@@ -21,8 +21,7 @@ class MyTest extends TestCase
 				'20.345',
 				'class',
 				'type',
-				'na',
-				'addresstype',
+				'address',
 				'Varna',
 				'Varna, Bulgaria',
 			)

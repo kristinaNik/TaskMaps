@@ -20,8 +20,6 @@ class OSMGeocodingProviderData
 
 	private string $type;
 
-	private string $importance;
-
 	private string $addressType;
 
 	private string $name;
@@ -36,7 +34,6 @@ class OSMGeocodingProviderData
 	 * @param string $lon
 	 * @param string $class
 	 * @param string $type
-	 * @param string $importance
 	 * @param string $addressType
 	 * @param string $name
 	 * @param string $displayName
@@ -49,7 +46,6 @@ class OSMGeocodingProviderData
 		string $lon,
 		string $class,
 		string $type,
-		string $importance,
 		string $addressType,
 		string $name,
 		string $displayName
@@ -61,7 +57,6 @@ class OSMGeocodingProviderData
 		$this->lon = $lon;
 		$this->class = $class;
 		$this->type = $type;
-		$this->importance = $importance;
 		$this->addressType = $addressType;
 		$this->name = $name;
 		$this->displayName = $displayName;
@@ -100,11 +95,6 @@ class OSMGeocodingProviderData
 	public function getType(): string
 	{
 		return $this->type;
-	}
-
-	public function getImportance(): string
-	{
-		return $this->importance;
 	}
 
 	public function getAddressType(): string
