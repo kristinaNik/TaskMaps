@@ -1,0 +1,1 @@
+{"version":1,"defects":{"MyTest::testGetCoordinatesFromAddressWithOSMData":3},"times":{"MyTest::testExample":0.005,"MyTest::testGetCoordinatesFromAddressWithOSMData":0.012}}

@@ -28,6 +28,4 @@ class GoogleMapsProviderData
 	{
 		return $this->longitude;
 	}
-
-
 }
