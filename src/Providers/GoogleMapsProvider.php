@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace MapsTask\Providers;
 
 use GuzzleHttp\Client;
+use MapsTask\Formatters\GoogleMapsProviderDataFormatter;
 
 class GoogleMapsProvider implements GeocodingProviderInterface
 {
@@ -33,9 +34,7 @@ class GoogleMapsProvider implements GeocodingProviderInterface
 
 			if ($data['status'] !== 'OK') {
 				// Handle Google Maps API error
-				return [
-					'error_message' => $data['error_message']
-				];
+				return [];
 			}
 
 			$location = $data['results'][0]['geometry']['location'] ?? null;
@@ -45,10 +44,7 @@ class GoogleMapsProvider implements GeocodingProviderInterface
 				return [];
 			}
 
-			return [
-				'latitude' => $location['lat'],
-				'longitude' => $location['lng'],
-			];
+			return GoogleMapsProviderDataFormatter::format($location);
 
 		} catch (\Exception $exception) {
 			return [

@@ -1,11 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MapsTask\Providers;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Request;
-use MapsTask\DTO\OSMGeocodingProviderData;
-use MapsTask\Factories\OSMGeocodingProviderDataFactory;
+use GuzzleHttp\Psr7\Request;;
 use MapsTask\Formatters\OSMGeocodingProviderDataFormatter;
 
 class OSMGeocodingProvider implements GeocodingProviderInterface
@@ -31,7 +31,7 @@ class OSMGeocodingProvider implements GeocodingProviderInterface
 			]);
 
 			$response = $this->client->send($request);
-			$data = json_decode($response->getBody(), true);
+			$data = json_decode($response->getBody()->getContents(), true);
 
 			return OSMGeocodingProviderDataFormatter::format($data);
 		} catch (\Exception $exception) {

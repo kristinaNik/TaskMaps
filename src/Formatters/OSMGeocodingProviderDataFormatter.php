@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace MapsTask\Formatters;
 
 use MapsTask\DTO\OSMGeocodingProviderData;

@@ -8,12 +8,7 @@ use MapsTask\Services\GeocodingInterface;
 
 class GeocodingController
 {
-	private GeocodingInterface $geocodingService;
-
-	public function __construct(GeocodingInterface $geocodingService)
-	{
-		$this->geocodingService = $geocodingService;
-	}
+	public function __construct(private GeocodingInterface $geocodingService) {}
 
 	public function index(string $address): false|string
 	{
