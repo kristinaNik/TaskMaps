@@ -4,7 +4,7 @@ namespace MapsTask\Mappers;
 
 use MapsTask\DTO\GoogleMapsProviderData;
 
-class GoogleMapsMapper
+class GoogleMapsMapper implements MapperInterface
 {
 	public static function mapToDTO(array $data): array
 	{

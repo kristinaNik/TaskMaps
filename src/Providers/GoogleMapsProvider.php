@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace MapsTask\Providers;
 
 use GuzzleHttp\Client;
-use MapsTask\Formatters\GoogleMapsProviderDataFormatter;
-use MapsTask\Mappers\GoogleMapsMapper;
+use MapsTask\Mappers\MapperInterface;
 
 class GoogleMapsProvider implements GeocodingProviderInterface
 {
@@ -14,10 +13,13 @@ class GoogleMapsProvider implements GeocodingProviderInterface
 	private string $apiKey;
 	private Client $client;
 
-	public function __construct(string $apiKey, Client $client)
+	private MapperInterface $mapper;
+
+	public function __construct(string $apiKey, Client $client, MapperInterface $mapper)
 	{
 		$this->apiKey = $apiKey;
 		$this->client = $client;
+		$this->mapper = $mapper;
 	}
 
 	public function getData(string $address): array
@@ -45,7 +47,7 @@ class GoogleMapsProvider implements GeocodingProviderInterface
 				return [];
 			}
 
-			return GoogleMapsMapper::mapToDTO($locationData);
+			return $this->mapper->mapToDTO($locationData);
 
 		} catch (\Exception $exception) {
 			return [

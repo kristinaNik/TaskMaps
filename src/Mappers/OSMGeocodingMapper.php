@@ -4,7 +4,7 @@ namespace MapsTask\Mappers;
 
 use MapsTask\DTO\OSMGeocodingProviderData;
 
-class OSMGeocodingMapper
+class OSMGeocodingMapper implements MapperInterface
 {
 	public static function mapToDTO(array $data): array
 	{
