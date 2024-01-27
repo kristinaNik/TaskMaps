@@ -6,6 +6,8 @@ namespace MapsTask\Services;
 
 use MapsTask\DTO\GoogleMapsProviderData;
 use MapsTask\DTO\OSMGeocodingProviderData;
+use MapsTask\Formatters\GoogleMapsProviderDataFormatter;
+use MapsTask\Formatters\OSMGeocodingProviderDataFormatter;
 use MapsTask\Providers\GeocodingProviderInterface;
 
 class GeocodingService implements GeocodingInterface
@@ -36,29 +38,12 @@ class GeocodingService implements GeocodingInterface
 
 		foreach ($data as $item) {
 			if ($item instanceof OSMGeocodingProviderData) {
-				$response[] = $this->getOSMDataCoordinates($item);
+				$response[] = OSMGeocodingProviderDataFormatter::format($item);
 			} elseif ($item instanceof GoogleMapsProviderData) {
-				$response[] = $this->getGoogleMapsDataCoordinates($item);
+				$response[] = GoogleMapsProviderDataFormatter::format($item);
 			}
 		}
 
 		return $response;
-	}
-
-	private function getOSMDataCoordinates(OSMGeocodingProviderData $item): array
-	{
-		return [
-			'name' => $item->getName(),
-			'lon'  => $item->getLon(),
-			'lat'  => $item->getLat(),
-		];
-	}
-
-	private function getGoogleMapsDataCoordinates(GoogleMapsProviderData $item): array
-	{
-		return [
-			'lat' => $item->getLatitude(),
-			'lng' => $item->getLongitude(),
-		];
 	}
 }

@@ -7,6 +7,7 @@ namespace MapsTask\Providers;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;;
 use MapsTask\Formatters\OSMGeocodingProviderDataFormatter;
+use MapsTask\Mappers\OSMGeocodingMapper;
 
 class OSMGeocodingProvider implements GeocodingProviderInterface
 {
@@ -32,8 +33,7 @@ class OSMGeocodingProvider implements GeocodingProviderInterface
 
 			$response = $this->client->send($request);
 			$data = json_decode($response->getBody()->getContents(), true);
-
-			return OSMGeocodingProviderDataFormatter::format($data);
+			return OSMGeocodingMapper::mapToDTO($data);
 		} catch (\Exception $exception) {
 			return  [
 				'message' => $exception->getMessage(),

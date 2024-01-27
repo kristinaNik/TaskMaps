@@ -6,6 +6,7 @@ namespace MapsTask\Providers;
 
 use GuzzleHttp\Client;
 use MapsTask\Formatters\GoogleMapsProviderDataFormatter;
+use MapsTask\Mappers\GoogleMapsMapper;
 
 class GoogleMapsProvider implements GeocodingProviderInterface
 {
@@ -37,14 +38,14 @@ class GoogleMapsProvider implements GeocodingProviderInterface
 				return [];
 			}
 
-			$location = $data['results'][0]['geometry']['location'] ?? null;
+			$locationData = $data['results'][0]['geometry']['location'] ?? null;
 
-			if (!$location) {
+			if (!$locationData) {
 				// Handle missing or malformed data
 				return [];
 			}
 
-			return GoogleMapsProviderDataFormatter::format($location);
+			return GoogleMapsMapper::mapToDTO($locationData);
 
 		} catch (\Exception $exception) {
 			return [
