@@ -5,13 +5,17 @@ use MapsTask\Controllers\GeocodingController;
 require_once 'vendor/autoload.php';
 require 'bin/build.php';
 
-$container = build();
+try {
+	$container = build();
+} catch (Exception $e) {
+	echo 'error building the container';
+}
 
 $geocodingController = $container->get(GeocodingController::class);
 
 /**
  * @todo remove hardcoded example
  */
-$result = $geocodingController->index('Varna', 'osm'); //example
+$result = $geocodingController->index('Varna'); //example
 dd($result);
 
