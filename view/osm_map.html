@@ -49,7 +49,7 @@
 
             console.log("First Coordinates:", firstCoordinates);
 
-            $('#result').html(result);
+            $("#result").html("<p>Latitude: " + firstCoordinates.lat + "</p><p>Longitude: " + firstCoordinates.lon + "</p>");
 
             let target = L.latLng(firstCoordinates.lat, firstCoordinates.lon);
 

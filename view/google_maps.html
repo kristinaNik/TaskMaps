@@ -29,37 +29,49 @@
 <div id="map"></div>
 
 <script>
-    function initMap() {
-        let myLatLng = { lat: 37.7749, lng: -122.4194 };
-        let map = new google.maps.Map(document.getElementById("map"), {
-            center: myLatLng,
-            zoom: 12,
-        });
-    }
-
     $(document).ready(function() {
+        window.initMap = function() {
+            let myLatLng = { lat: 37.7749, lng: -122.4194 };
+            let map = new google.maps.Map(document.getElementById("map"), {
+                center: myLatLng,
+                zoom: 12,
+            });
+        }
+
         $("#geocodingForm").submit(function(event) {
             event.preventDefault();
             var address = $("#address").val();
 
             $.ajax({
                 type: "POST",
-                url: "geocoding.php",
+                url: "geocode.php",
                 data: { address: address },
                 success: function(response) {
                     try {
                         let data = JSON.parse(response);
-                        $("#result").html("<p>Formatted Address: " + data.formatted_address + "</p>");
 
-                        let map = new google.maps.Map(document.getElementById("map"), {
-                            center: data.location,
-                            zoom: 12,
-                        });
-                        let marker = new google.maps.Marker({
-                            position: data.location,
-                            map: map,
-                            title: "Geocoded Location",
-                        });
+                        if (data.lat !== undefined && data.lng !== undefined) {
+                            $("#result").html("<p>Latitude: " + data.result.lat + "</p><p>Longitude: " + data.result.lng + "</p>");
+
+                            let map = new google.maps.Map(document.getElementById("map"), {
+                                center: { lat: data.result.lat, lng: data.result.lng },
+                                zoom: 12,
+                            });
+                            let marker = new google.maps.Marker({
+                                position: { lat: data.result.lat, lng: data.result.lng },
+                                map: map,
+                                title: "Geocoded Location",
+                            });
+
+                            marker.addListener('click', function() {
+                                let infowindow = new google.maps.InfoWindow({
+                                    content: "Geocoded Location: " + data.lat + ", " + data.lng
+                                });
+                                infowindow.open(map, marker);
+                            });
+                        } else {
+                            $("#result").html("<p>" + data.result.message + "</p>");
+                        }
                     } catch (e) {
                         $("#result").html("<p>Error parsing response.</p>");
                     }
