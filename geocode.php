@@ -1,12 +1,17 @@
 <?php
 
-use MapsTask\Controllers\GeocodingController;
-
 require_once 'vendor/autoload.php';
 require 'bin/build.php';
 
+use MapsTask\Controllers\GeocodingController;
+
+require_once 'vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
 try {
-	$container = build();
+	$container = build($_ENV['PROVIDER']);
 } catch (Exception $e) {
 	echo json_encode(['error' => 'Error building the container']);
 	exit;
@@ -14,12 +19,10 @@ try {
 
 $geocodingController = $container->get(GeocodingController::class);
 
-// Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$address = $_POST['address'] ?? '';
 
 	$coordinatesData = $geocodingController->index($address);
 
 	echo $coordinatesData;
-
 }

@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace MapsTask\Controllers;
 
 use MapsTask\Formatters\ResponseFormatter;
-use MapsTask\Services\GeocodingInterface;
+use MapsTask\Services\GeocodingServiceInterface;
 
 class GeocodingController
 {
-    public function __construct(private GeocodingInterface $geocodingService)
+    public function __construct(private GeocodingServiceInterface $geocodingService)
     {
     }
 

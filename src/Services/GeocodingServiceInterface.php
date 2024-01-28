@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace MapsTask\Services;
 
-interface GeocodingInterface
+interface GeocodingServiceInterface
 {
     public function getCoordinatesFromAddress(string $address);
 }

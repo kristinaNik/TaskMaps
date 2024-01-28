@@ -13,7 +13,7 @@ use MapsTask\Services\GeocodingService;
 /**
  * @throws Exception
  */
-function build()
+function build(string $provider)
 {
 	$containerBuilder = new ContainerBuilder();
 	$container = $containerBuilder->build();
@@ -34,19 +34,28 @@ function build()
 	// Register GoogleMapsProvider
 	$container->set(GoogleMapsProvider::class, \DI\create()
 		->constructor(
-			\DI\value('test_key'), // API key
+			\DI\value($_ENV['GOOGLE_API_KEY']),
 			\DI\get(Client::class),
 			\DI\get(GoogleMapsMapper::class)
 		)
 	);
 
 	// Register GeocodingService
-	$container->set(GeocodingService::class, function () use ($container) {
+	$container->set(GeocodingService::class, function () use ($container, $provider) {
 		$osmProvider = $container->get(OSMGeocodingProvider::class);
 		$googleMapsProvider = $container->get(GoogleMapsProvider::class);
 
-		// Choose to work with which provider
-		return GeocodingServiceFactory::create($osmProvider);
+		try {
+			$chosenProvider = match ($provider) {
+				'osm' => $osmProvider,
+				'google_maps' => $googleMapsProvider
+			};
+		} catch (\UnhandledMatchError $e) {
+			echo json_encode(['error' => "No available provider"]);
+			exit;
+		}
+
+		return GeocodingServiceFactory::create($chosenProvider);
 	});
 
 	// Register GeocodingController
@@ -55,5 +64,19 @@ function build()
 	);
 
 	return $container;
+}
+
+
+function loadView(string $provider): void
+{
+	try {
+		match ($provider) {
+			'osm' => require 'view/osm_map.html',
+			'google_maps' => require 'view/google_maps.html',
+		};
+	} catch (\UnhandledMatchError $e) {
+		echo json_encode(['error' => "No available provider"]);
+		exit;
+	}
 }
 

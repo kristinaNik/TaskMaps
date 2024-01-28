@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geocoding Form</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=<?= $_ENV['GOOGLE_API_KEY']; ?>&callback=initMap" async defer></script>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Geocoding Form</h1>
+
+<form id="geocodingForm">
+    <label for="address">Address:</label>
+    <input type="text" id="address" name="address" required>
+    <button type="submit">Submit</button>
+</form>
+
+<div id="result"></div>
+
+<div id="map"></div>
+
+<script>
+    function initMap() {
+        let myLatLng = { lat: 37.7749, lng: -122.4194 };
+        let map = new google.maps.Map(document.getElementById("map"), {
+            center: myLatLng,
+            zoom: 12,
+        });
+    }
+
+    $(document).ready(function() {
+        $("#geocodingForm").submit(function(event) {
+            event.preventDefault();
+            var address = $("#address").val();
+
+            $.ajax({
+                type: "POST",
+                url: "geocoding.php",
+                data: { address: address },
+                success: function(response) {
+                    try {
+                        let data = JSON.parse(response);
+                        $("#result").html("<p>Formatted Address: " + data.formatted_address + "</p>");
+
+                        let map = new google.maps.Map(document.getElementById("map"), {
+                            center: data.location,
+                            zoom: 12,
+                        });
+                        let marker = new google.maps.Marker({
+                            position: data.location,
+                            map: map,
+                            title: "Geocoded Location",
+                        });
+                    } catch (e) {
+                        $("#result").html("<p>Error parsing response.</p>");
+                    }
+                },
+                error: function() {
+                    $("#result").html("<p>Failed to submit the form.</p>");
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

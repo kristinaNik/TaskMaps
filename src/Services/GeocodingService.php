@@ -10,7 +10,7 @@ use MapsTask\Formatters\GoogleMapsProviderDataFormatter;
 use MapsTask\Formatters\OSMGeocodingProviderDataFormatter;
 use MapsTask\Providers\GeocodingProviderInterface;
 
-class GeocodingService implements GeocodingInterface
+class GeocodingService implements GeocodingServiceInterface
 {
     private GeocodingProviderInterface $geocodingProvider;
 

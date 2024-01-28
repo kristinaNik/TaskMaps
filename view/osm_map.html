@@ -45,13 +45,13 @@
         }
 
         if (Array.isArray(response.result) && response.result.length > 0) {
-            const firstCoordinates = response.result[0];
+            let firstCoordinates = response.result[0];
 
             console.log("First Coordinates:", firstCoordinates);
 
             $('#result').html(result);
 
-            var target = L.latLng(firstCoordinates.lat, firstCoordinates.lon);
+            let target = L.latLng(firstCoordinates.lat, firstCoordinates.lon);
 
             map.setView(target, 14);
             L.marker(target).addTo(map);
@@ -65,14 +65,14 @@
     }
 
     function submitForm() {
-        const address = $('#address').val();
+        let address = $('#address').val();
 
         $.ajax({
             type: 'POST',
             url: 'geocode.php',
             data: { address: address },
             success: function (response) {
-                const parsedResponse = JSON.parse(response);
+                let parsedResponse = JSON.parse(response);
                 updateResult(response, parsedResponse);
                 clearForm();
             },

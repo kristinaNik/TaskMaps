@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use MapsTask\Controllers\GeocodingController;
-use MapsTask\Services\GeocodingInterface;
+use MapsTask\Services\GeocodingServiceInterface;
 use PHPUnit\Framework\TestCase;
 
 class GeocodingControllerTest extends TestCase
@@ -18,7 +18,7 @@ class GeocodingControllerTest extends TestCase
 		string $expectedResponse
 	): void
 	{
-		$geocodingService = $this->createMock(GeocodingInterface::class);
+		$geocodingService = $this->createMock(GeocodingServiceInterface::class);
 
 		if ($expectException) {
 			$geocodingService->expects($this->once())
