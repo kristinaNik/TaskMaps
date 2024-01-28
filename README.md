@@ -23,6 +23,9 @@ The backend is responsible for building the PHP Dependency Injection (DI) contai
 ### Frontend
 
 On the frontend, a simple form is provided with one input field that requires users to enter an address. After submitting the form, the application displays an OpenStreetMap (OSM) map with the location corresponding to the provided address.
+- For the generation of the map , I have used jQuery script
+  The jQuery script responsible for handling the form submission and generating the map:
+
 
 ### PHPUnit Testing
 
@@ -53,4 +56,5 @@ The key part is the decision-making process to choose which provider to work wit
 ```bash
 composer install
 vendor/bin/phpunit
+```
 

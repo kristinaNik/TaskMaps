@@ -16,11 +16,11 @@ class GeocodingController
 		try {
 			$coordinatesData = $this->geocodingService->getCoordinatesFromAddress($address);
 
-			return ResponseFormatter::jsonResponse(['result' => $coordinatesData]);
+			return ResponseFormatter::jsonResponse(['result' => $coordinatesData], 200);
 		} catch (\Exception $exception) {
 			return ResponseFormatter::jsonResponse(
 				['error' => 'An error occurred while processing your request.'],
-				JSON_THROW_ON_ERROR
+				442
 			);
 		}
 	}
