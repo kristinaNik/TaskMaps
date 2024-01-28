@@ -18,7 +18,7 @@ class GeocodingController
 
 			return ResponseFormatter::jsonResponse($coordinatesData);
 		} catch (\Exception $exception) {
-			ResponseFormatter::jsonResponse(
+			return ResponseFormatter::jsonResponse(
 				['error' => 'An error occurred while processing your request.'],
 				JSON_THROW_ON_ERROR
 			);
