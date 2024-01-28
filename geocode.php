@@ -1,7 +1,6 @@
 <?php
 
 use MapsTask\Controllers\GeocodingController;
-use MapsTask\Formatters\ResponseFormatter;
 
 require_once 'vendor/autoload.php';
 require 'bin/build.php';
