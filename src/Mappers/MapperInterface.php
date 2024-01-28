@@ -4,5 +4,5 @@ namespace MapsTask\Mappers;
 
 interface MapperInterface
 {
-	public function mapToDTO(array $data): array;
+    public function mapToDTO(array $data): array;
 }

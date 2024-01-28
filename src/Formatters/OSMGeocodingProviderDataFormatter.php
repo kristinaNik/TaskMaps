@@ -8,12 +8,12 @@ use MapsTask\DTO\OSMGeocodingProviderData;
 
 class OSMGeocodingProviderDataFormatter
 {
-	public static function format(OSMGeocodingProviderData $item): array
-	{
-		return [
-			'name' => $item->getName(),
-			'lon'  => $item->getLon(),
-			'lat'  => $item->getLat(),
-		];
-	}
+    public static function format(OSMGeocodingProviderData $item): array
+    {
+        return [
+            'name' => $item->getName(),
+            'lon'  => $item->getLon(),
+            'lat'  => $item->getLat(),
+        ];
+    }
 }

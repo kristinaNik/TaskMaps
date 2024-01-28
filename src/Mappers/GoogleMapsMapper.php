@@ -6,17 +6,17 @@ use MapsTask\DTO\GoogleMapsProviderData;
 
 class GoogleMapsMapper implements MapperInterface
 {
-	public function mapToDTO(array $data): array
-	{
-		$response = [];
+    public function mapToDTO(array $data): array
+    {
+        $response = [];
 
-		foreach ($data as $item) {
-			$response[] = new GoogleMapsProviderData(
-				$item['lat'],
-				$item['lng']
-			);
-		}
+        foreach ($data as $item) {
+            $response[] = new GoogleMapsProviderData(
+                $item['lat'],
+                $item['lng']
+            );
+        }
 
-		return $response;
-	}
+        return $response;
+    }
 }

@@ -6,5 +6,5 @@ namespace MapsTask\Services;
 
 interface GeocodingInterface
 {
-  public function getCoordinatesFromAddress(string $address);
+    public function getCoordinatesFromAddress(string $address);
 }

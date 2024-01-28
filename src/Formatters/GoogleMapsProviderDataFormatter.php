@@ -8,11 +8,11 @@ use MapsTask\DTO\GoogleMapsProviderData;
 
 class GoogleMapsProviderDataFormatter
 {
-	public static function format(GoogleMapsProviderData $item): array
-	{
-		return [
-			'lat' => $item->getLatitude(),
-			'lng' => $item->getLongitude(),
-		];
-	}
+    public static function format(GoogleMapsProviderData $item): array
+    {
+        return [
+            'lat' => $item->getLatitude(),
+            'lng' => $item->getLongitude(),
+        ];
+    }
 }

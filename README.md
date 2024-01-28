@@ -1,6 +1,6 @@
 # Project Name
 
-Maps 
+Maps provider project
 
 ## Table of Contents
 
@@ -10,11 +10,13 @@ Maps
     - [PHPUnit Testing](#phpunit-testing)
 - [Usage](#usage)
   - [PHP/DI Container](#phpdi-container)
+  - [PHP CS Fixer](#php-cs-fixer-)
 - [Installation](#installation)
 
 ## Introduction
 
 This project is a custom implementation without relying on any specific PHP framework. It employs a custom logic for both the backend and frontend components.
+Also the project follows a coding style standard, and use [PHP CS Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) to ensure code consistency.
 
 ### Backend
 
@@ -29,7 +31,11 @@ On the frontend, a simple form is provided with one input field that requires us
 
 ### PHPUnit Testing
 
-The project includes PHPUnit tests for various services.
+The project includes PHPUnit tests for various services. To run all the tests you can use the following command
+
+```bash
+vendor/bin/phpunit
+```
 
 ### PHP/DI Container
 
@@ -51,11 +57,16 @@ The key part is the decision-making process to choose which provider to work wit
  - The GeocodingServiceFactory::create($osmProvider) line indicates that the GeocodingServiceFactory::create method is invoked with the $osmProvider as an argument.
  - The factory method (create) is responsible for deciding and creating an instance of GeocodingService based on the provided provider (in this case, the OSM provider).
 
+## PHP CS Fixer 
+Used to format the code according to the project's coding style
+```bash
+composer cs-fix
+```
+
 ## Installation
 
 ```bash
 composer install
-vendor/bin/phpunit
 ```
 
 ## Stack ##

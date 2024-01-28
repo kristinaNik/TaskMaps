@@ -12,38 +12,38 @@ use MapsTask\Providers\GeocodingProviderInterface;
 
 class GeocodingService implements GeocodingInterface
 {
-	private GeocodingProviderInterface $geocodingProvider;
+    private GeocodingProviderInterface $geocodingProvider;
 
-	public function __construct(GeocodingProviderInterface $geocodingProvider)
-	{
-		$this->geocodingProvider = $geocodingProvider;
-	}
+    public function __construct(GeocodingProviderInterface $geocodingProvider)
+    {
+        $this->geocodingProvider = $geocodingProvider;
+    }
 
-	public function getCoordinatesFromAddress(string $address): array
-	{
-		try {
-			$data = $this->geocodingProvider->getData($address);
-			if (empty($data)) {
-				throw new \Exception("Empty data");
-			}
-			return $this->getCoordinates($data);
-		} catch (\Exception $exception) {
-			return ['message' => $exception->getMessage()];
-		}
-	}
+    public function getCoordinatesFromAddress(string $address): array
+    {
+        try {
+            $data = $this->geocodingProvider->getData($address);
+            if (empty($data)) {
+                throw new \Exception("Empty data");
+            }
+            return $this->getCoordinates($data);
+        } catch (\Exception $exception) {
+            return ['message' => $exception->getMessage()];
+        }
+    }
 
-	private function getCoordinates(array $data): array
-	{
-		$response = [];
+    private function getCoordinates(array $data): array
+    {
+        $response = [];
 
-		foreach ($data as $item) {
-			if ($item instanceof OSMGeocodingProviderData) {
-				$response[] = OSMGeocodingProviderDataFormatter::format($item);
-			} elseif ($item instanceof GoogleMapsProviderData) {
-				$response[] = GoogleMapsProviderDataFormatter::format($item);
-			}
-		}
+        foreach ($data as $item) {
+            if ($item instanceof OSMGeocodingProviderData) {
+                $response[] = OSMGeocodingProviderDataFormatter::format($item);
+            } elseif ($item instanceof GoogleMapsProviderData) {
+                $response[] = GoogleMapsProviderDataFormatter::format($item);
+            }
+        }
 
-		return $response;
-	}
+        return $response;
+    }
 }
