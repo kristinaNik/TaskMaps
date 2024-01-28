@@ -24,30 +24,41 @@
 <div id="map" style="height: 400px;"></div>
 
 <script>
+
     let map;
     function updateResult(result, response) {
-        if (Array.isArray(response.result) && response.result.length > 0) {
-            const firstCoordinates = response.result[0];
-            $('#result').html(result);
-
-            var element = document.getElementById('map');
+        if (!map) {
+            let element = document.getElementById('map');
             element.style = 'height:300px;';
-            var map = L.map(element);
+
+            map = L.map(element);
 
             L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(map);
+        } else {
+            map.eachLayer(function (layer) {
+                if (layer instanceof L.Marker) {
+                    layer.remove();
+                }
+            });
+        }
+
+        if (Array.isArray(response.result) && response.result.length > 0) {
+            const firstCoordinates = response.result[0];
+
+            console.log("First Coordinates:", firstCoordinates);
+
+            $('#result').html(result);
 
             var target = L.latLng(firstCoordinates.lat, firstCoordinates.lon);
-            map.setView(target, 14);
 
+            map.setView(target, 14);
             L.marker(target).addTo(map);
         } else {
             $('#result').html('No valid coordinates available.');
         }
     }
-
-
 
     function clearForm() {
         $('#address').val('');
