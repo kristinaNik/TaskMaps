@@ -8,7 +8,8 @@ Maps
     - [Backend](#backend)
     - [Frontend](#frontend)
     - [PHPUnit Testing](#phpunit-testing)
-- [Features](#features)
+- [Usage](#usage)
+  - [PHP/DI Container](#phpdi-container)
 - [Installation](#installation)
 
 ## Introduction
@@ -27,6 +28,25 @@ On the frontend, a simple form is provided with one input field that requires us
 
 The project includes PHPUnit tests for various services.
 
+### PHP/DI Container
+
+Inside the closure, two geocoding provider instances are resolved from the container:
+- $osmProvider is an instance of the OSMGeocodingProvider class.
+- $googleMapsProvider is an instance of the GoogleMapsProvider class.
+
+```bash
+	$container->set(GeocodingService::class, function () use ($container) {
+		$osmProvider = $container->get(OSMGeocodingProvider::class);
+		$googleMapsProvider = $container->get(GoogleMapsProvider::class);
+
+		// Choose to work with which provider
+		return GeocodingServiceFactory::create($osmProvider);
+	});
+```
+
+The key part is the decision-making process to choose which provider to work with:
+ - The GeocodingServiceFactory::create($osmProvider) line indicates that the GeocodingServiceFactory::create method is invoked with the $osmProvider as an argument.
+ - The factory method (create) is responsible for deciding and creating an instance of GeocodingService based on the provided provider (in this case, the OSM provider).
 
 ## Installation
 
