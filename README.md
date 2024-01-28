@@ -13,12 +13,14 @@ Maps provider project
 
 ## Introduction
 
-This project is a custom implementation without relying on any specific PHP framework. It employs a custom logic for both the backend and frontend components.
-Also the project follows a coding style standard, and use [PHP CS Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) to ensure code consistency.
+This project 
+- is a custom implementation without relying on any specific PHP framework. It employs a custom logic for both the backend and frontend components.
+- utilizes [Guzzle](https://docs.guzzlephp.org/) to make HTTP requests to external APIs. 
+follows a coding style standard, and use [PHP CS Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) to ensure code consistency.
 
 ### Backend
 
-The backend is responsible for building the PHP Dependency Injection (DI) container and registering the dependencies of various classes. It follows a custom logic to manage dependencies, ensuring a modular and maintainable codebase. Additionally, the backend makes requests to the OpenStreetMap (OSM) and Google Maps APIs to retrieve coordinates based on the provided address.
+The backend is responsible for building the PHP Dependency Injection (DI) container and registering the dependencies of various classes. It follows a custom logic to manage dependencies, ensuring a modular and maintainable codebase. Additionally, the backend makes requests to the OpenStreetMap (OSM) and Google Maps APIs with the help of [Guzzle](https://docs.guzzlephp.org/) to retrieve coordinates based on the provided address.
 - In the `build` function of the geocode.php file, the geocoding provider is selected based on the provided argument. The available options are 'osm' and 'google_maps'. If no valid provider is provided, the application will return an error
 ```php
 function build(string $provider)
@@ -92,7 +94,11 @@ composer install
 
 ## Stack ##
 - PHP version 8 and above
-- jQuery
+- Guzzle Client
+- PhpUnit version 9.6
+- php-di
+- php dotenv
+- Java Script/jQuery
 - HTML
 
 
