@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geocoding Form</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+
+<h1>Geocoding Form</h1>
+
+<form method="post" action="javascript:void(0);" onsubmit="submitForm();">
+    <label for="address">Address:</label>
+    <input type="text" id="address" name="address" required>
+    <button type="submit">Submit</button>
+</form>
+
+<div id="result">
+</div>
+
+<div id="map" style="height: 400px;"></div>
+
+<script>
+    let map;
+    function updateResult(result, response) {
+        if (Array.isArray(response.result) && response.result.length > 0) {
+            const firstCoordinates = response.result[0];
+            $('#result').html(result);
+
+            var element = document.getElementById('map');
+            element.style = 'height:300px;';
+            var map = L.map(element);
+
+            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            var target = L.latLng(firstCoordinates.lat, firstCoordinates.lon);
+            map.setView(target, 14);
+
+            L.marker(target).addTo(map);
+        } else {
+            $('#result').html('No valid coordinates available.');
+        }
+    }
+
+
+
+    function clearForm() {
+        $('#address').val('');
+    }
+
+    function submitForm() {
+        const address = $('#address').val();
+
+        $.ajax({
+            type: 'POST',
+            url: 'geocode.php',
+            data: { address: address },
+            success: function (response) {
+                const parsedResponse = JSON.parse(response);
+                updateResult(response, parsedResponse);
+                clearForm();
+            },
+            error: function () {
+                updateResult('An error occurred while processing the request.', []);
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

@@ -16,14 +16,7 @@ class GeocodingController
 		try {
 			$coordinatesData = $this->geocodingService->getCoordinatesFromAddress($address);
 
-			if (!empty($coordinatesData)) {
-				return ResponseFormatter::jsonResponse(['coordinates' => $coordinatesData]);
-			} else {
-				return ResponseFormatter::jsonResponse(
-					['error' => 'No coordinates found for the given address.'],
-					JSON_THROW_ON_ERROR
-				);
-			}
+			return ResponseFormatter::jsonResponse(['result' => $coordinatesData]);
 		} catch (\Exception $exception) {
 			return ResponseFormatter::jsonResponse(
 				['error' => 'An error occurred while processing your request.'],
