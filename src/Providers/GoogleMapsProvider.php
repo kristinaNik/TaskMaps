@@ -10,21 +10,11 @@ use MapsTask\Mappers\MapperInterface;
 class GoogleMapsProvider implements GeocodingProviderInterface
 {
 	const API_ENDPOINT = "https://maps.googleapis.com/maps/api/geocode/json";
-	private string $apiKey;
-	private Client $client;
 
-	private MapperInterface $mapper;
-
-	public function __construct(string $apiKey, Client $client, MapperInterface $mapper)
-	{
-		$this->apiKey = $apiKey;
-		$this->client = $client;
-		$this->mapper = $mapper;
-	}
+	public function __construct(private string $apiKey, private Client $client, private MapperInterface $mapper) {}
 
 	public function getData(string $address): array
 	{
-
 		$params = [
 			'address' => $address,
 			'key' => $this->apiKey,

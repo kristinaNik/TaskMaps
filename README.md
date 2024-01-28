@@ -58,3 +58,9 @@ composer install
 vendor/bin/phpunit
 ```
 
+## Stack ##
+- PHP version 8 and above
+- jQuery
+- HTML
+
+

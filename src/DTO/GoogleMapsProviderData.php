@@ -3,17 +3,9 @@
 declare(strict_types=1);
 
 namespace MapsTask\DTO;
-
 class GoogleMapsProviderData
 {
-	private string $latitude;
-	private string $longitude;
-
-	public function __construct(string $latitude, string $longitude)
-	{
-		$this->latitude = $latitude;
-		$this->longitude = $longitude;
-	}
+	public function __construct(private string $latitude, private string $longitude) {}
 
 	public function getLatitude(): string
 	{

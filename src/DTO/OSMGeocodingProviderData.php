@@ -6,40 +6,19 @@ namespace MapsTask\DTO;
 
 class OSMGeocodingProviderData
 {
-	private int $placeId;
-	private string $osmType;
-	private int $osmId;
-	private string $lat;
-	private string $lon;
-	private string $class;
-	private string $type;
-	private string $addressType;
-	private string $name;
-	private string $displayName;
 
 	public function __construct(
-		int $placeId,
-		string $osmType,
-		int $osmId,
-		string $lat,
-		string $lon,
-		string $class,
-		string $type,
-		string $addressType,
-		string $name,
-		string $displayName
-	) {
-		$this->placeId = $placeId;
-		$this->osmType = $osmType;
-		$this->osmId = $osmId;
-		$this->lat = $lat;
-		$this->lon = $lon;
-		$this->class = $class;
-		$this->type = $type;
-		$this->addressType = $addressType;
-		$this->name = $name;
-		$this->displayName = $displayName;
-	}
+		private int $placeId,
+		private string $osmType,
+		private int $osmId,
+		private string $lat,
+		private string $lon,
+		private string $class,
+		private string $type,
+		private string $addressType,
+		private string $name,
+		private string $displayName
+	) {}
 
 	public function getPlaceId(): int
 	{

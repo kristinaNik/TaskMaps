@@ -13,15 +13,7 @@ class OSMGeocodingProvider implements GeocodingProviderInterface
 	const API_ENDPOINT = 'https://nominatim.openstreetmap.org/search?format=json&q=%s';
 	const USER_AGENT = 'Nominatim-Test';
 
-	private Client $client;
-
-	private MapperInterface $mapper;
-
-	public function __construct(Client $client, MapperInterface $mapper)
-	{
-		$this->client = $client;
-		$this->mapper = $mapper;
-	}
+	public function __construct(private Client $client, private MapperInterface $mapper) {}
 
 	public function getData(string $address): array
 	{
