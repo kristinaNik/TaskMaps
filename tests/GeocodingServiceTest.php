@@ -19,10 +19,10 @@ class GeocodingServiceTest extends TestCase
 		array $expectedResult
 	)
 	{
-		$osmProviderMock = $this->createMock(GeocodingProviderInterface::class);
-		$osmProviderMock->method('getData')->willReturn([$osmProviderData, $googleMapsProviderData]);
+		$geocodingProviderMock = $this->createMock(GeocodingProviderInterface::class);
+		$geocodingProviderMock->method('getData')->willReturn([$osmProviderData, $googleMapsProviderData]);
 
-		$geocodingService = new GeocodingService($osmProviderMock);
+		$geocodingService = new GeocodingService($geocodingProviderMock);
 
 		$result = $geocodingService->getCoordinatesFromAddress('Sofia, Bulgaria');
 

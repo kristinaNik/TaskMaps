@@ -54,7 +54,7 @@ try {
 
 ### Frontend
 
-On the frontend, a simple form is provided with one input field that requires users to enter an address. After submitting the form, the application displays an OpenStreetMap (OSM) map with the location corresponding to the provided address.
+On the frontend, a simple form is provided with one input field that requires users to enter an address. After submitting the form, the application displays an OpenStreetMap (OSM) or a Google Maps map with the location corresponding to the provided address.
 - For the generation of the map that is displayed in the view, I have used jQuery script
   The jQuery script responsible for handling the form submission and generating the map:
 - The front end is loaded with the `loadView` function, which allows you to dynamically load the view based on the chosen geocoding provider. The geocoding provider is passed as an argument, and the corresponding HTML file is included using a match statement.
