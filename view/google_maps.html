@@ -49,16 +49,17 @@
                 success: function(response) {
                     try {
                         let data = JSON.parse(response);
+                        if (Array.isArray(data.result) && data.result.length > 0) {
+                            let firstCoordinates = data.result[0];
 
-                        if (data.lat !== undefined && data.lng !== undefined) {
-                            $("#result").html("<p>Latitude: " + data.result.lat + "</p><p>Longitude: " + data.result.lng + "</p>");
+                            $("#result").html("<p>Latitude: " + firstCoordinates.lat + "</p><p>Longitude: " + firstCoordinates.lng + "</p>");
 
                             let map = new google.maps.Map(document.getElementById("map"), {
-                                center: { lat: data.result.lat, lng: data.result.lng },
+                                center: { lat: firstCoordinates.lat, lng: firstCoordinates.lng },
                                 zoom: 12,
                             });
                             let marker = new google.maps.Marker({
-                                position: { lat: data.result.lat, lng: data.result.lng },
+                                position: { lat: firstCoordinates.lat, lng: firstCoordinates.lng },
                                 map: map,
                                 title: "Geocoded Location",
                             });
