@@ -13,10 +13,10 @@ Maps provider project
 
 ## Introduction
 
-This project 
+The project 
 - is a custom implementation without relying on any specific PHP framework. It employs a custom logic for both the backend and frontend components.
 - utilizes [Guzzle](https://docs.guzzlephp.org/) to make HTTP requests to external APIs. 
-follows a coding style standard, and use [PHP CS Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) to ensure code consistency.
+- follows a coding style standard, and use [PHP CS Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) to ensure code consistency.
 
 ### Backend
 
